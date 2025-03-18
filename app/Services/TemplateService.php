@@ -7,47 +7,80 @@ use GuzzleHttp\Exception\RequestException;
 
 class TemplateService
 {
-    protected $client;
-    protected $apiKey;
-    protected $apiUrl;
+    protected Client $client;
+    protected string $apiKey;
+    protected string $apiUrl;
 
     public function __construct()
     {
-        $this->apiKey = env('MAILRELAY_API_KEY');
-        $this->apiUrl = env('MAILRELAY_URL', 'https://app.mailrelay.com/api');
-        $this->client = new Client();
+        $this->apiKey = env('MAILRELAY_API_KEY', '');
+        $this->apiUrl = env('MAILRELAY_URL', 'https://example.ipzmarketing.com/api/v1/templates');
+        $this->client = new Client([
+            'headers' => [
+                'x-auth-token' => $this->apiKey,
+                'Content-Type' => 'application/json'
+            ]
+        ]);
     }
 
-    public function createTemplate($name, $htmlContent, $subject)
+    /**
+     * Método genérico para enviar peticiones a la API
+     */
+    protected function sendRequest(string $method, string $endpoint = '', array $data = [], array $query = [])
     {
         try {
-            $response = $this->client->post("{$this->apiUrl}/templates", [
-                'json' => [
-                    'name' => $name,
-                    'html_content' => $htmlContent,
-                    'subject' => $subject
-                ],
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
+            $options = [];
+            if (!empty($query)) {
+                $options['query'] = $query;
+            }
+            if (!empty($data)) {
+                $options['json'] = $data;
+            }
+
+            $response = $this->client->request($method, "{$this->apiUrl}{$endpoint}", $options);
             return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             return ['error' => $e->getMessage()];
         }
     }
 
-    public function getTemplate($templateId)
+    /**
+     * Obtener todas las plantillas con filtros opcionales
+     */
+    public function getAllTemplates(array $params = [])
     {
-        try {
-            $response = $this->client->get("{$this->apiUrl}/templates/{$templateId}", [
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
-            return json_decode($response->getBody()->getContents(), true);
-        } catch (RequestException $e) {
-            return ['error' => $e->getMessage()];
-        }
+        return $this->sendRequest('GET', '', [], $params);
+    }
+
+    /**
+     * Obtener una plantilla por ID
+     */
+    public function getTemplateById(int $id)
+    {
+        return $this->sendRequest('GET', "/{$id}");
+    }
+
+    /**
+     * Crear una nueva plantilla
+     */
+    public function createTemplate(array $data)
+    {
+        return $this->sendRequest('POST', '', $data);
+    }
+
+    /**
+     * Actualizar una plantilla
+     */
+    public function updateTemplate(int $id, array $data)
+    {
+        return $this->sendRequest('PATCH', "/{$id}", $data);
+    }
+
+    /**
+     * Eliminar una plantilla
+     */
+    public function deleteTemplate(int $id)
+    {
+        return $this->sendRequest('DELETE', "/{$id}");
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use GuzzleHttp\Client;
@@ -6,25 +7,34 @@ use GuzzleHttp\Exception\RequestException;
 
 class SubscriberService
 {
-    protected $client;
-    protected $apiKey;
-    protected $apiUrl;
+    protected Client $client;
+    protected string $apiKey;
+    protected string $apiUrl;
 
     public function __construct()
     {
-        $this->apiKey = env('MAILRELAY_API_KEY');
-        $this->apiUrl = env('MAILRELAY_URL', 'https://app.mailrelay.com/api');
-        $this->client = new Client();
+        $this->apiKey = env('MAILRELAY_API_KEY', '');
+        $this->apiUrl = env('MAILRELAY_URL', 'https://example.ipzmarketing.com/api/v1/subscribers');
+        $this->client = new Client([
+            'headers' => [
+                'x-auth-token' => $this->apiKey,
+                'Content-Type' => 'application/json'
+            ]
+        ]);
     }
 
-    public function getSubscribersList()
+    protected function sendRequest(string $method, string $endpoint = '', array $data = [], array $query = [])
     {
         try {
-            $response = $this->client->get("{$this->apiUrl}/subscribers", [
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
+            $options = [];
+            if (!empty($query)) {
+                $options['query'] = $query;
+            }
+            if (!empty($data)) {
+                $options['json'] = $data;
+            }
+
+            $response = $this->client->request($method, "{$this->apiUrl}{$endpoint}", $options);
             return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             return ['error' => $e->getMessage()];
@@ -32,26 +42,51 @@ class SubscriberService
     }
 
 
-    public function addSubscriberToMailRelay($name, $email, $listId)
+    public function getAllSubscribers(array $params = [])
     {
-        $url = $this->apiUrl . '/subscribers';
-
-        try {
-            $response = $this->client->post($url, [
-                'json' => [
-                    'email' => $email,
-                    'name' => $name,
-                    'list_id' => $listId,  // Pasamos el list_id junto con el correo y nombre
-                ],
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ]
-            ]);
-
-            return json_decode($response->getBody()->getContents(), true); // Devuelve la respuesta de MailRelay
-        } catch (\Exception $e) {
-            return ['error' => $e->getMessage()]; // Devuelve el error si la API falla
-        }
+        return $this->sendRequest('GET', '', [], $params);
     }
 
+
+    public function getSubscriberById(int $id, bool $includeGroups = false)
+    {
+        $query = $includeGroups ? ['include_groups' => true] : [];
+        return $this->sendRequest('GET', "/{$id}", [], $query);
+    }
+
+    public function createSubscriber(array $data)
+    {
+        return $this->sendRequest('POST', '', $data);
+    }
+
+    public function updateSubscriber(int $id, array $data)
+    {
+        return $this->sendRequest('PATCH', "/{$id}", $data);
+    }
+
+    public function deleteSubscriber(int $id, bool $permanent = false)
+    {
+        return $this->sendRequest('DELETE', "/{$id}", ['permanent_delete' => $permanent]);
+    }
+
+    public function restoreSubscriber(int $id)
+    {
+        return $this->sendRequest('PATCH', "/{$id}/restore");
+    }
+
+    public function banSubscriber(int $id, bool $ban = true)
+    {
+        $endpoint = $ban ? "/{$id}/ban" : "/{$id}/unban";
+        return $this->sendRequest('PATCH', $endpoint);
+    }
+
+    public function resendConfirmationEmail(int $id)
+    {
+        return $this->sendRequest('POST', "/{$id}/resend_confirmation_email");
+    }
+
+    public function bulkUpdateSubscribers(array $data)
+    {
+        return $this->sendRequest('PATCH', "/bulk_update", $data);
+    }
 }

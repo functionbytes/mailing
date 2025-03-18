@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use GuzzleHttp\Client;
@@ -6,33 +7,47 @@ use GuzzleHttp\Exception\RequestException;
 
 class SmtpEmailService
 {
-    protected $client;
-    protected $apiKey;
-    protected $apiUrl;
+    protected Client $client;
+    protected string $apiKey;
+    protected string $apiUrl;
 
     public function __construct()
     {
-        $this->apiKey = env('MAILRELAY_API_KEY');
-        $this->apiUrl = env('MAILRELAY_URL', 'https://app.mailrelay.com/api');
-        $this->client = new Client();
+        $this->apiKey = env('MAILRELAY_API_KEY', '');
+        $this->apiUrl = env('MAILRELAY_URL', 'https://example.ipzmarketing.com/api/v1/smtp_emails');
+        $this->client = new Client([
+            'headers' => [
+                'x-auth-token' => $this->apiKey,
+                'Content-Type' => 'application/json'
+            ]
+        ]);
     }
 
-    public function sendSMTPEmail($subject, $htmlContent, $toEmail)
+    protected function sendRequest(string $method, string $endpoint = '', array $data = [], array $query = [])
     {
         try {
-            $response = $this->client->post("{$this->apiUrl}/smtp_emails", [
-                'json' => [
-                    'subject' => $subject,
-                    'html_content' => $htmlContent,
-                    'to_email' => $toEmail
-                ],
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
+            $options = [];
+            if (!empty($query)) {
+                $options['query'] = $query;
+            }
+            if (!empty($data)) {
+                $options['json'] = $data;
+            }
+
+            $response = $this->client->request($method, "{$this->apiUrl}{$endpoint}", $options);
             return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             return ['error' => $e->getMessage()];
         }
+    }
+
+    public function getAllSmtpEmails(array $params = [])
+    {
+        return $this->sendRequest('GET', '', [], $params);
+    }
+
+    public function getSmtpEmailById(int $id, array $includes = [])
+    {
+        return $this->sendRequest('GET', "/{$id}", [], $includes);
     }
 }

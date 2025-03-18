@@ -2,33 +2,34 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Spatie\Activitylog\Models\Activity;
+use Illuminate\Support\Facades\Log;
 
 class ActivityLogService
 {
-    protected $client;
-    protected $apiKey;
-    protected $apiUrl;
-
-    public function __construct()
+    /**
+     * Registrar una actividad en el sistema
+     */
+    public function logActivity(string $logName, string $description, array $properties = [])
     {
-        $this->apiKey = env('MAILRELAY_API_KEY');
-        $this->apiUrl = env('MAILRELAY_URL', 'https://app.mailrelay.com/api');
-        $this->client = new Client();
+        activity($logName)
+            ->withProperties($properties)
+            ->log($description);
     }
 
-    public function getActivityLogs()
+    /**
+     * Obtener los registros de actividad
+     */
+    public function getLogs(int $limit = 50)
     {
-        try {
-            $response = $this->client->get("{$this->apiUrl}/activity_logs", [
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
-            return json_decode($response->getBody()->getContents(), true);
-        } catch (RequestException $e) {
-            return ['error' => $e->getMessage()];
-        }
+        return Activity::latest()->limit($limit)->get();
+    }
+
+    /**
+     * Obtener un log específico por ID
+     */
+    public function getLogById(int $id)
+    {
+        return Activity::find($id);
     }
 }

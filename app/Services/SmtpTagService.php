@@ -7,31 +7,43 @@ use GuzzleHttp\Exception\RequestException;
 
 class SmtpTagService
 {
-    protected $client;
-    protected $apiKey;
-    protected $apiUrl;
+    protected Client $client;
+    protected string $apiKey;
+    protected string $apiUrl;
 
     public function __construct()
     {
-        $this->apiKey = env('MAILRELAY_API_KEY');
-        $this->apiUrl = env('MAILRELAY_URL', 'https://app.mailrelay.com/api');
-        $this->client = new Client();
+        $this->apiKey = env('MAILRELAY_API_KEY', '');
+        $this->apiUrl = env('MAILRELAY_URL', 'https://example.ipzmarketing.com/api/v1/smtp_tags');
+        $this->client = new Client([
+            'headers' => [
+                'x-auth-token' => $this->apiKey,
+                'Content-Type' => 'application/json'
+            ]
+        ]);
     }
 
-    public function createSMTPTag($tagName)
+    protected function sendRequest(string $method, string $endpoint = '', array $data = [], array $query = [])
     {
         try {
-            $response = $this->client->post("{$this->apiUrl}/smtp_tags", [
-                'json' => [
-                    'name' => $tagName
-                ],
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiKey}",
-                ],
-            ]);
+            $options = [];
+            if (!empty($query)) {
+                $options['query'] = $query;
+            }
+            if (!empty($data)) {
+                $options['json'] = $data;
+            }
+
+            $response = $this->client->request($method, "{$this->apiUrl}{$endpoint}", $options);
             return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             return ['error' => $e->getMessage()];
         }
     }
+
+    public function getAllSmtpTags(array $params = [])
+    {
+        return $this->sendRequest('GET', '', [], $params);
+    }
+
 }
