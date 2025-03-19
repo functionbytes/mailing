@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Models\Categorie;
+use App\Models\Service;
 use App\Models\Lang;
 
 
@@ -79,7 +79,7 @@ class SubscribersController extends Controller
 
     public function create(){
 
-        $categories = Categorie::available()->get()->pluck('title','id');
+        $categories = Service::available()->get()->pluck('title','id');
         $langs = Lang::available()->get()->prepend('' , '')->pluck('title','id');
 
         return view('managers.views.subscribers.subscribers.create')->with([

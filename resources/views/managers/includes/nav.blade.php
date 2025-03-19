@@ -25,17 +25,6 @@
                     </a>
                 </li>
 
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('manager.inventaries') }}" aria-expanded="false">
-                          <span class="d-flex">
-                           <i class="fa-duotone fa-barcode"></i>
-                          </span>
-                        <span class="hide-menu">Inventaries</span>
-                    </a>
-                </li>
-
-
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
                           <span class="d-flex">
@@ -56,16 +45,9 @@
                                 <span class="hide-menu">Listas</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="{{ route('manager.subscribers.conditions') }}" class="sidebar-link">
-                                <span class="hide-menu">Estados</span>
-                            </a>
-                        </li>
                     </ul>
 
                 </li>
-
-
 
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
@@ -101,14 +83,7 @@
                         <span class="hide-menu">Productos</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('manager.shops') }}" aria-expanded="false">
-                          <span class="d-flex">
-                            <i class="fa-duotone fa-home-alt"></i>
-                          </span>
-                        <span class="hide-menu">Tiendas</span>
-                    </a>
-                </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('manager.users') }}" aria-expanded="false">
                           <span class="d-flex">
@@ -117,97 +92,6 @@
                         <span class="hide-menu">Usuarios</span>
                     </a>
                 </li>
-
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
-                          <span class="d-flex">
-                            <i class="fa-duotone fa-note"></i>
-                          </span>
-                        <span class="hide-menu">Ticket</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.tickets') }}" aria-expanded="false">
-                                <span>
-                                  <i class="ti ti-circle"></i>
-                                </span>
-                                <span class="hide-menu">Tickets</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('manager.tickets.categories') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Categoria</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('manager.tickets.status') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Estado</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.tickets.priorities') }}" aria-expanded="false">
-                              <span>
-                                <i class="ti ti-circle"></i>
-                              </span>
-                                <span class="hide-menu">Prioridad</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.tickets.groups') }}" aria-expanded="false">
-                              <span>
-                                <i class="ti ti-circle"></i>
-                              </span>
-                                <span class="hide-menu">Grupos</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('manager.tickets.canneds') }}" aria-expanded="false">
-                            <span>
-                              <i class="ti ti-circle"></i>
-                            </span>
-                                <span class="hide-menu">Respuestas</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow " href="#" aria-expanded="false">
-                          <span class="d-flex">
-                            <i class="fa-duotone fa-circle-exclamation"></i>
-                          </span>
-                        <span class="hide-menu">Preguntas</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.faqs') }}" aria-expanded="false">
-                                <span>
-                                  <i class="ti ti-circle"></i>
-                                </span>
-                                <span class="hide-menu">Preguntas</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.faqs.categories') }}" aria-expanded="false">
-                                <span>
-                                  <i class="ti ti-circle"></i>
-                                </span>
-                                <span class="hide-menu">Categorias</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-
 
 
                 <li class="sidebar-item">
@@ -237,45 +121,14 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.settings.tickets') }}" aria-expanded="false">
+                            <a class="sidebar-link"  href="{{ route('manager.services') }}" aria-expanded="false">
                                   <span>
                                     <i class="ti ti-circle"></i>
                                   </span>
-                                <span class="hide-menu">Ticket</span>
+                                <span class="hide-menu">Servicios</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.livechats') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Chat</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.categories') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Categorias</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.langs') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Idiomas</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link"  href="{{ route('manager.settings.hours') }}" aria-expanded="false">
-                                  <span>
-                                    <i class="ti ti-circle"></i>
-                                  </span>
-                                <span class="hide-menu">Horario</span>
-                            </a>
-                        </li>
+
                         <li class="sidebar-item">
                             <a class="sidebar-link"  href="{{ route('manager.settings.maintenance') }}" aria-expanded="false">
                               <span>

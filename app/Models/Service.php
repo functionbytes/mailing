@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
-class Categorie extends Model
+class Service extends Model
 {
 
-    protected $table = "categories";
+    protected $table = "services";
 
     protected $fillable = [
         'title',
@@ -41,8 +41,8 @@ class Categorie extends Model
     {
         return $this->belongsToMany(
             'App\Models\Subscriber\SubscriberList',
-            'subscriber_list_categories',
-            'categorie_id',
+            'subscriber_list_services',
+            'service_id',
             'list_id'
         );
     }
@@ -51,17 +51,10 @@ class Categorie extends Model
     {
         return $this->belongsToMany(
             'App\Models\Subscriber\SubscriberList',
-            'categorie_subscriber_list',  // Pivot table name
-            'categorie_id',  // Foreign key on the pivot table for this model
+            'service_subscriber_list',  // Pivot table name
+            'service_id',  // Foreign key on the pivot table for this model
             'subscriber_list_id' // Foreign key on the pivot table for the related model
         );
     }
-
-
-    public function listsByLang($langId)
-    {
-        return $this->lists()->where('subscriber_lists.lang_id', $langId);
-    }
-
 
 }

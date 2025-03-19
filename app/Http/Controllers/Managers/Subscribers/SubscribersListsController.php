@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Managers\Subscribers;
 
-use App\Models\Categorie;
+use App\Models\Service;
 use App\Models\Lang;
 use App\Models\Subscriber\Subscriber;
-use App\Models\Subscriber\SubscriberCategorie;
-use App\Models\Subscriber\SubscriberListCategorie;
+use App\Models\Subscriber\SubscriberService;
+use App\Models\Subscriber\SubscriberListService;
 use App\Models\Subscriber\SubscriberList;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
@@ -50,7 +50,7 @@ class SubscribersListsController extends Controller
 
       public function create(){
 
-          $categories = Categorie::available()->get()->pluck('title','id');
+          $categories = Service::available()->get()->pluck('title','id');
           $langs = Lang::available()->get()->prepend('' , '')->pluck('title','id');
 
           return view('managers.views.subscribers.lists.create')->with([

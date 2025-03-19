@@ -5,13 +5,13 @@ namespace App\Models\Subscriber;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriberListCategorie extends Model
+class SubscriberListService extends Model
 {
 
-    protected $table = "subscriber_list_categories";
+    protected $table = "subscriber_list_services";
 
     protected $fillable = [
-        'categorie_id',
+        'service_id',
         'list_id',
         'created_at',
         'updated_at'
@@ -27,9 +27,9 @@ class SubscriberListCategorie extends Model
         return $this->belongsTo('App\Models\Subscriber\SubscriberList', 'list_id');
     }
 
-    public function categorie(): BelongsTo
+    public function service(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Subscriber\SubscriberCategorie', 'categorie_id');
+        return $this->belongsTo('App\Models\Subscriber\SubscriberService', 'service_id');
     }
 
 

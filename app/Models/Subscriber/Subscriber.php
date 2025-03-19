@@ -73,12 +73,12 @@ class Subscriber extends Model
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Categorie', 'subscriber_categories', 'subscriber_id', 'categorie_id');
+        return $this->belongsToMany('App\Models\Service', 'subscriber_categories', 'subscriber_id', 'categorie_id');
     }
 
     public function subcategorie() : HasMany
     {
-        return $this->hasMany('App\Models\Subscriber\SubscriberCategorie');
+        return $this->hasMany('App\Models\Subscriber\SubscriberService');
     }
 
     public function lists(): HasMany

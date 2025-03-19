@@ -243,7 +243,6 @@ Route::prefix('blacklist-imports')->group(function () {
     Route::delete('/{id}', [BlacklistImportController::class, 'destroy']);
 });
 
-
 Route::prefix('segments')->group(function () {
     Route::get('/', [SegmentController::class, 'index']);
     Route::get('/{id}', [SegmentController::class, 'show']);

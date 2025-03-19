@@ -78,13 +78,13 @@ class SubscriberList extends Model
 
     public function categorie(): HasMany
     {
-        return $this->hasMany('App\Models\Subscriber\SubscriberListCategorie','list_id','id');
+        return $this->hasMany('App\Models\Subscriber\SubscriberListService','list_id','id');
     }
 
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(
-            SubscriberCategorie::class,
+            SubscriberService::class,
             'subscriber_list_categories',
             'list_id',
             'categorie_id'
@@ -93,7 +93,7 @@ class SubscriberList extends Model
 
     public function listcategories(): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\Categorie', 'subscriber_list_categories', 'list_id', 'categorie_id');
+        return $this->belongsToMany('App\Models\Service', 'subscriber_list_categories', 'list_id', 'categorie_id');
     }
 
     public function subscribers(): BelongsToMany
