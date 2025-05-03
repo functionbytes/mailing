@@ -107,7 +107,6 @@ return [
 
     'providers' => [
 
-        BotMan\BotMan\BotManServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -131,29 +130,20 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         //Laravel\Horizon\HorizonServiceProvider::class,
 
         App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\JobServiceProvider::class,
     ],
 
     'aliases' => [
-        'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
-        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
-        'Twitter' => Artesaos\SEOTools\Facades\TwitterCard::class,
-        'JsonLd' => Artesaos\SEOTools\Facades\JsonLd::class,
-        'JsonLdMulti' => Artesaos\SEOTools\Facades\JsonLdMulti::class,
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
         'Str' => Illuminate\Support\Str::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Route' => Illuminate\Support\Facades\Route::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
     ],
 
     /*

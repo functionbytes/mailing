@@ -70,7 +70,6 @@ return Application::configure(basePath: dirname(__DIR__))
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class, // NECESARIO si usas restablecimiento de contraseñas
         Illuminate\Notifications\NotificationServiceProvider::class, // NECESARIO para Notificaciones con Mail/SMS
         App\Providers\AppServiceProvider::class, // Registra configuraciones personalizadas de tu app
-        App\Providers\EventServiceProvider::class, // Registra eventos y listeners
         App\Providers\RouteServiceProvider::class, // Configura rutas y middlewares
         Illuminate\Foundation\Providers\FoundationServiceProvider::class, // NECESARIO para MaintenanceMode
         Illuminate\Encryption\EncryptionServiceProvider::class, // Agregado para corregir "encrypter"
@@ -83,7 +82,6 @@ return Application::configure(basePath: dirname(__DIR__))
         Illuminate\View\ViewServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class, // Fixes missing commands
-        BotMan\BotMan\BotManServiceProvider::class,
     ])
     ->withExceptions(function (Exceptions $exceptions) {
         //

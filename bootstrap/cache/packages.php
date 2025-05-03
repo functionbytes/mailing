@@ -1,37 +1,4 @@
 <?php return array (
-  'artesaos/seotools' => 
-  array (
-    'aliases' => 
-    array (
-      'SEO' => 'Artesaos\\SEOTools\\Facades\\SEOTools',
-      'JsonLd' => 'Artesaos\\SEOTools\\Facades\\JsonLd',
-      'SEOMeta' => 'Artesaos\\SEOTools\\Facades\\SEOMeta',
-      'Twitter' => 'Artesaos\\SEOTools\\Facades\\TwitterCard',
-      'OpenGraph' => 'Artesaos\\SEOTools\\Facades\\OpenGraph',
-    ),
-    'providers' => 
-    array (
-      0 => 'Artesaos\\SEOTools\\Providers\\SEOToolsServiceProvider',
-    ),
-  ),
-  'botman/botman' => 
-  array (
-    'aliases' => 
-    array (
-      'BotMan' => 'BotMan\\BotMan\\Facades\\BotMan',
-    ),
-    'providers' => 
-    array (
-      0 => 'BotMan\\BotMan\\BotManServiceProvider',
-    ),
-  ),
-  'botman/driver-web' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'BotMan\\Drivers\\Web\\Providers\\WebServiceProvider',
-    ),
-  ),
   'laravel/pulse' => 
   array (
     'aliases' => 
@@ -103,18 +70,6 @@
     'providers' => 
     array (
       0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    ),
-  ),
-  'milon/barcode' => 
-  array (
-    'aliases' => 
-    array (
-      'DNS1D' => 'Milon\\Barcode\\Facades\\DNS1DFacade',
-      'DNS2D' => 'Milon\\Barcode\\Facades\\DNS2DFacade',
-    ),
-    'providers' => 
-    array (
-      0 => 'Milon\\Barcode\\BarcodeServiceProvider',
     ),
   ),
   'nesbot/carbon' => 
