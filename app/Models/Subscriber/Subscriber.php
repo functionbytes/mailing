@@ -37,20 +37,43 @@ class Subscriber extends Model
     public const VERIFICATION_CONDITION_UNVERIFIED = 'unverified';
 
     protected $fillable = [
-        'uid',
-        'firstname',
-        'lastname',
+        'mailrelay_id',         // ID original desde Mailrelay
         'email',
-        'sports',
-        'parties',
-        'condition',
-        'commercial',
-        'lang_id',
-        'check_at',
-        'unsubscriber_at',
-        'created_at',
-        'updated_at'
+        'name',
+        'status',               // active, inactive, disabled
+        'sms_phone',
+        'subscribed_at',
+        'unsubscribed',
+        'unsubscribed_at',
+        'bounced',
+        'bounce_category',
+        'reported_spam',
+        'local_ban',
+        'global_ban',
+        'score',
+        'city',
+        'state',
+        'country',
+        'website',
+        'locale',
+        'time_zone',
+        'updated_remote_at',    // updated_at desde Mailrelay
+        'last_synced_at'        // Última vez que sincronizaste con Mailrelay
     ];
+
+    protected $casts = [
+        'subscribed_at' => 'datetime',
+        'unsubscribed_at' => 'datetime',
+        'updated_remote_at' => 'datetime',
+        'last_synced_at' => 'datetime',
+        'bounced' => 'boolean',
+        'unsubscribed' => 'boolean',
+        'reported_spam' => 'boolean',
+        'local_ban' => 'boolean',
+        'global_ban' => 'boolean',
+    ];
+
+
     public function scopeId($query ,$id)
     {
         return $query->where('id', $id)->first();

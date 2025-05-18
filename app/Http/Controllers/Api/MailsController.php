@@ -1,12 +1,14 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Models\Subscriber;
 use App\Services\MailRelayService;
 use Illuminate\Http\Request;
 
-class MailRelayController extends Controller
+class MailsController extends Controller
 {
     protected $mailRelayService;
 

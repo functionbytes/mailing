@@ -53,15 +53,6 @@ Route::group(['prefix' => 'subscribers'], function () {
     Route::get('synchronization', [SubscribersController::class, 'synchronization']);
 });
 
-Route::middleware('auth:sanctum')->group(function() {
-
-    Route::apiResource('tickets', TicketsController::class)->except(['update']);
-    Route::put('tickets/{ticket}', [TicketsController::class, 'replace']);
-    Route::patch('tickets/{ticket}', [TicketsController::class, 'update']);
-
-});
-
-
 
 Route::prefix('campaigns')->group(function () {
     Route::post('/', [CampaignController::class, 'create']);
